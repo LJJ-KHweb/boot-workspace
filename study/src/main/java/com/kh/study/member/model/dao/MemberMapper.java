@@ -11,5 +11,8 @@ import com.kh.study.member.model.dto.MemberDto;
 public interface MemberMapper {
 	@Select("SELECT * FROM MEMBER WHERE STATUS = 'Y' ORDER BY ENROLL_DATE DESC")
 	public List<MemberDto> findAll();
+
+	@Select("SELECT * FROM MEMBER WHERE STATUS = 'Y' AND USER_ID = #{userId}")
+	public MemberDto findById(String userId);
 	
 }

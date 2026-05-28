@@ -17,4 +17,8 @@ public class MemberService {
 	public List<MemberDto> findAll(){
 		return mapper.findAll();
 	}
+
+	public MemberDto findById(String userId) {
+		return mapper.findById(userId);
+	}
 }
