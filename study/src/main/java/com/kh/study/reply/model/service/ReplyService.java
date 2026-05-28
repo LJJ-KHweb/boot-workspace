@@ -18,5 +18,9 @@ public class ReplyService {
 	public List<ReplyDto> findAll(){
 		return mapper.findAll();
 	}
+
+	public ReplyDto findByKey(String replyNo) {
+		return mapper.findByKey(replyNo);
+	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +23,10 @@ public class ReplyController {
 	@GetMapping
 	public List<ReplyDto> findAll(){
 		return service.findAll();
+	}
+	
+	@GetMapping("/{replyNo}")
+	public ReplyDto findByKey(@PathVariable(name="replyNo") String replyNo) {
+		return service.findByKey(replyNo);
 	}
 }

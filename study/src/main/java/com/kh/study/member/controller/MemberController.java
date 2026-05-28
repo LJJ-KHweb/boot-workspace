@@ -29,4 +29,6 @@ public class MemberController {
 	public MemberDto findById(@PathVariable(name="id") String userId) {
 		return service.findById(userId);
 	}
+	
+	
 }

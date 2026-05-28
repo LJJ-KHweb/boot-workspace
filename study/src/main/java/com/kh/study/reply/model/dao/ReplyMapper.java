@@ -11,5 +11,6 @@ import com.kh.study.reply.model.dto.ReplyDto;
 public interface ReplyMapper {
 	@Select("SELECT * FROM REPLY ORDER BY REPLY_NO DESC")
 	List<ReplyDto> findAll();
-	
+	@Select("SELECT * FROM REPLY WHERE REPLY_NO = #{replyNo}")
+	ReplyDto findByKey(String replyNo);
 }
