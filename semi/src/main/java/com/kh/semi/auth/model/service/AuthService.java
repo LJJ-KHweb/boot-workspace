@@ -1,6 +1,7 @@
 package com.kh.semi.auth.model.service;
 
 import java.util.Date;
+import java.util.Map;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,6 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 import com.kh.semi.auth.model.dto.LoginRequestDto;
+import com.kh.semi.auth.model.dto.LoginResponse;
 import com.kh.semi.auth.model.vo.CustomUserDetails;
 import com.kh.semi.exception.CustomAuthenticationException;
 import com.kh.semi.token.model.service.TokenService;
@@ -26,7 +28,7 @@ public class AuthService {
 	private final AuthenticationManager authenticationManager;
 	private final TokenService tokenService;
 
-	public void login(@Valid LoginRequestDto lrd) {
+	public LoginResponse login(@Valid LoginRequestDto lrd) {
 		// 로그인(인증/Authentication) 구현
 
 		// 1. 유효성 검증(아이디/ 비밀번호값이 들어왔는가? 영어 숫자인가? 글자수가 괜찮은가) -> @Vaild로 대체
@@ -50,8 +52,13 @@ public class AuthService {
 		// 토큰 만들어서 발급 
 		
 		Jwts.builder().subject(user.getUsername()).issuedAt(new Date()).expiration(new Date()).compact();
-		tokenService.getTokens(user);
-		
+		Map<String, String> tokens = tokenService.getTokens(user);
+		return LoginResponse.builder().memberId(user.getUsername())
+												.memberName(user.getMemberName())
+												.role(user.getAuthorities().toString())
+												.accessToken(tokens.get("accessToken"))
+												.refreshToken(tokens.get("refreshToken"))
+												.build();
 
 	}
 

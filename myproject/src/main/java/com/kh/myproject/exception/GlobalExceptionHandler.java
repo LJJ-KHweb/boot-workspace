@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ErrorResponse> handlerMethodArgumentNotValid(MethodArgumentNotValidException e){
 		Map<String, String> errors = new HashMap();
 		e.getBindingResult().getFieldErrors().forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
-		return ResponseEntity.badRequest().body(new ErrorRepsponse(400,"ㅁㄴㅇㅁㄴ"));
+		return ResponseEntity.badRequest().body(new ErrorResponse("400","test"));
 	}
 
 	@ExceptionHandler(DuplicateUserIdException.class)

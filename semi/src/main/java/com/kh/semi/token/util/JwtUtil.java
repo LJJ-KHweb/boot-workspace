@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.kh.semi.auth.model.vo.CustomUserDetails;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -39,11 +40,11 @@ public class JwtUtil {
 
 	public String getAccessToken(CustomUserDetails user) {
 		return Jwts.builder()
-				.subject(user.getMemberName())
+				.subject(user.getUsername())
 				.issuedAt(new Date())
 		//	   .expiration(new Date(System.currentTimeMillis()+(1000*60*15)));
 		//	   .expiration(new Date(System.currentTimeMillis()+ TimeUnit.MINUTES.toMinutes(15))));
-		       .expiration(Date.from(Instant.now().plus(Duration.ofMinutes(15))))
+		       .expiration(Date.from(Instant.now().plus(Duration.ofMinutes(540))))
 		       .claim("memberName", user.getMemberName())
 		       .signWith(key)
 		       .compact();
@@ -54,6 +55,25 @@ public class JwtUtil {
 	 * 	RefreshToken은 토큰은 일반적으로 AccessToken에 비해 긴 만료시간으로 설정해서 생성함
 	 *	  
 	 */
+
+	public String getRefreshToken(CustomUserDetails user) {
+		return  Jwts.builder()
+				.subject(user.getMemberName())
+				.issuedAt(new Date())
+				.expiration(Date.from(Instant.now().plus(Duration.ofDays(5))))
+				.claim("memberName", user.getMemberName())
+				.signWith(key)
+				.compact();
+	}
+	
+	
+	public Claims parseJwt(String token) {
+		return Jwts.parser()
+					.verifyWith(key)
+					.build()
+					.parseSignedClaims(token)
+					.getPayload();
+	}
 	
 	// 세미 프로젝트 조 
 	
