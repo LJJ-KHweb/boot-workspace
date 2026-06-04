@@ -15,7 +15,7 @@ import com.kh.study.reply.model.service.ReplyService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/replies")
+@RequestMapping("/api/rep")
 public class ReplyController {
 	@Autowired
 	private ReplyService service;
@@ -25,8 +25,8 @@ public class ReplyController {
 		return service.findAll();
 	}
 	
-	@GetMapping("/{replyNo}")
-	public ReplyDto findByKey(@PathVariable(name="replyNo") String replyNo) {
+	@GetMapping("/{id}")
+	public ReplyDto findByKey(@PathVariable(name="id") Long replyNo) {
 		return service.findByKey(replyNo);
 	}
 }

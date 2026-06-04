@@ -19,7 +19,7 @@ public class ReplyService {
 		return mapper.findAll();
 	}
 
-	public ReplyDto findByKey(String replyNo) {
+	public ReplyDto findByKey(Long replyNo) {
 		return mapper.findByKey(replyNo);
 	}
 	
