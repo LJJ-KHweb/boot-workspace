@@ -18,6 +18,7 @@ public class SecurityConfig {
 				.cors(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(requests -> {
 					requests.requestMatchers(HttpMethod.POST,"api/users").permitAll();
+					
 				}).build();
 	}
 	

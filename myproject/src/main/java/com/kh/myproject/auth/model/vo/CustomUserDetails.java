@@ -1,7 +1,6 @@
-package com.kh.semi.auth.model.vo;
+package com.kh.myproject.auth.model.vo;
 
 import java.util.Collection;
-
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +16,4 @@ public class CustomUserDetails implements UserDetails {
 	private String memberName;
 	private Collection<? extends GrantedAuthority> authorities;
 	private String status;
-	
-
 }

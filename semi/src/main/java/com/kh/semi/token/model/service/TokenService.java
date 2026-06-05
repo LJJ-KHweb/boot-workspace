@@ -36,7 +36,7 @@ public class TokenService {
 	// 토큰을 만들어서 반환해주는 메소드
 	private Map<String,String> createTokens(CustomUserDetails user) {
 		return Map.of("accessToken", tokenUtil.getAccessToken(user),
-						"refreshToken", tokenUtil.getAccessToken(user));
+						"refreshToken", tokenUtil.getRefreshToken(user));
 	}
 	
 	// 리프레시토큰을 받아서 DB에 INSERT해주는 메소드

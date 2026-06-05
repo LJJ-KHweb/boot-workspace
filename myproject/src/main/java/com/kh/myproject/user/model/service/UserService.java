@@ -24,12 +24,15 @@ public class UserService {
 			throw new DuplicateUserIdException("아이디가 중복입니다.");
 		}
 		
-		User user2 = new User().builder()
+		User userEntity = new User().builder()
 								.userId(user.getUserId())
 								.userPwd(user.getUserPwd())
 								.userName(user.getUserName())
 								.build();
 		
-		mapper.signup(user2);
+		int result = mapper.signup(userEntity);
+		if( 1 > result) {
+			throw new DuplicateUserIdException("잠시후 시도해주세요");
+		}
 	}
 }

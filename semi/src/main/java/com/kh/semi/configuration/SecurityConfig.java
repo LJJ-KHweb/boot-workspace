@@ -54,8 +54,11 @@ public class SecurityConfig {
 					// POST방식으로 /members라는 요청이 오면 권한체크 안하고 전부 허용
 					requests.requestMatchers(HttpMethod.POST,"/api/members", "/api/auth/login").permitAll();
 					// PATCH방식으로 /api/members 요청이 오면 인증이 된건가?
-					requests.requestMatchers(HttpMethod.PATCH, "/api/members").authenticated();
-					requests.requestMatchers(HttpMethod.DELETE, "/api/members").authenticated();
+					requests.requestMatchers(HttpMethod.PATCH, "/api/members", "/api/boards/**").authenticated();
+					requests.requestMatchers(HttpMethod.DELETE, "/api/members","/api/boards/**").authenticated();
+					requests.requestMatchers(HttpMethod.POST, "/api/boards").authenticated();
+					requests.requestMatchers(HttpMethod.GET, "/api/boards/**").permitAll();
+					//hasRole()메소드 우리 디비 ROLE userDetails에 Collection뭐시기에 담겨있어야 그걸 확인 할수 있음
 				}).sessionManagement(manager-> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
