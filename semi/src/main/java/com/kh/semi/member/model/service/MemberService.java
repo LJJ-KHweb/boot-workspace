@@ -44,6 +44,7 @@ public class MemberService {
 		// 비밀번호 암호화 
 		// 아이디 중복검사
 		int count = memberMapper.countByMemberId(member.getMemberId());
+			
 		
 		if(count > 0) {
 			throw new DuplicateMemberIdException("이미 존재하는 아이디입니다");
